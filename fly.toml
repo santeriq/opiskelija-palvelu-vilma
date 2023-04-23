@@ -1,0 +1,26 @@
+# fly.toml app configuration file generated for vilma on 2023-04-24T01:03:57+03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "vilma"
+primary_region = "arn"
+
+[build]
+  builder = "paketobuildpacks/builder:base"
+
+[env]
+  PORT = "8080"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+
+[checks]
+  [checks.alive]
+    type = "tcp"
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "5s"

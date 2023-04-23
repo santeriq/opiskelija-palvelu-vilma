@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+<title>{% block title %}Home{% endblock %}</title>
+
+{% block content %}
+
+<form method="POST">
+    <h3 align="center">Luo kurssi</h3>
+    <div class="form-group">
+        <label for="course_name">Kurssinimi</label>
+        <input type="text" class="form-control" id="course_name" name="course_name" placeholder="Anna kurssinimi"/>    
+    </div>
+    <div>
+        <label for="course_credits">Opintopisteet</label>
+        <input type="integer" class="form-control" id="course_credits", name="course_credits" placeholder="Anna opintopistemäärä"/>
+    </div>
+    <div class="form-group">
+        <label for="course_key">Kurssiavain</label>
+        <input type="text" class="form-control" id="course_key" name="course_key" placeholder="Anna kurssiavain"/>    
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-primary">Luo kurssi</button>
+</form>
+
+{% endblock %}

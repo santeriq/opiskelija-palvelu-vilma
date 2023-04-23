@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+<title>{% block title %}Home{% endblock %}</title>
+
+{% block content %}
+<h2 align="center">{{ user.username }}</h2>
+<h4 align="center">(Voit pyytää opiskelija-roolin opettajalta tai adminilta)</h4>
+
+<br/>
+<br/>
+
+<form method="POST">
+    <div class="form-group">
+        <textarea class="form-control" id="message" name="message" placeholder="Vapaa valintainen viesti (max 200 merkkiä)"></textarea>    
+    </div>
+    <button type="submit" class="btn btn-primary">Lähetä pyyntö</button>
+</form>
+{% endblock %}

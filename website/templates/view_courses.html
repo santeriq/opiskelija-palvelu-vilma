@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+<title>{% block title %}Home{% endblock %}</title>
+
+{% block content %}
+<br>
+
+<div class="row">
+    <div align="center" class="col-3">Kurssin nimi</div>
+    <div align="center" class="col-3">Opintopisteet</div>
+    <div align="center" class="col-3">Kurssiavain</div>
+    <div align="center" class="col-3">Avoin</div>
+</div>
+
+
+<div class="row">
+    <a align="center" class="col-3" href="/view-courses">
+    <button class="btn btn-primary" style="width: 114%;">x</button>
+    </a>
+    <a align="center" class="col-3" href="/view-courses/sorted-by-credits">
+    <button class="btn btn-primary" style="width: 114%;">x</button>
+    </a>
+    <a align="center" class="col-3" href="/view-courses/sorted-by-key">
+    <button class="btn btn-primary" style="width: 114%;">x</button>
+    </a>
+    <a align="center" class="col-3" href="/view-courses/sorted-by-status">
+    <button class="btn btn-primary" style="width: 100%;">x</button>
+    </a>
+</div>
+
+
+<ul class="list-group list-group-flush" id="courses">
+{% for course in courses %}
+<li class="list-group-item">
+<div class="row">
+    <div align="center" class="col-3">{{ course[0] }}</div>
+    <div align="center" class="col-3">{{ course[2] }}</div>
+    <div align="center" class="col-3">{{ course[1] }}</div>
+    <div align="center" class="col-3">{{ course[3] }}</div>
+</div>
+</li>
+{% endfor %}
+</ul>
+
+
+
+
+{% endblock %}

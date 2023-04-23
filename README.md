@@ -3,7 +3,9 @@ Valmiit testikäyttäjät:
 - teacher1 (teacher) (not ready)
 - student1 (student) (not ready)
 - user1 (guest)
-salasana: password1
+
+Salasana: 
+- password1
 
 
 Admin:

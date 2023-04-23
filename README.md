@@ -2,7 +2,7 @@ Valmiit testikäyttäjät:
 - admin1 (admin)
 - teacher1 (teacher) (not ready)
 - student1 (student) (not ready)
-- user1 (guest) 
+- user1 (guest)
 salasana: password1
 
 

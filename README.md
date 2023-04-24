@@ -7,6 +7,7 @@ website -> __init__py
 schema.sql
 - valmiit komennot joilla luot taulukot ja lisäät niihin testitapauksia
 
+
 Valmiit testikäyttäjät:
 - admin1 (admin)
 - teacher1 (teacher) (not ready)

@@ -7,16 +7,26 @@ website -> __init__.py
 schema.sql
 - valmiit komennot joilla luot taulukot ja lisäät niihin testitapauksia
 
+----------------------------
+**Ohjeet**
 
-Kloonaa tämä repositorio omalle koneellesi ja siirry sen juurikansioon. Luo kansioon .env-tiedosto ja määritä sen sisältö seuraavanlaiseksi:
+1. Kloonaa tämä repositorio omalle koneellesi ja siirry sen juurikansioon
 
-Seuraavaksi aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla
+2. Luo kansioon .env-tiedosto ja määritä sen sisältöön
+
+DATABASE_URL=
+
+SECRET_KEY=
+
+3. Aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla
 
 $ python3 -m venv venv
-$ source venv/bin/activate
-$ venv/Scripts/activate  (windows, ainakin minulla))
-$ pip install -r requirements.txt (päivitetty 27.3.2023)
-Määritä vielä tietokannan skeema komennolla
+
+$ source venv/bin/activate TAI $ venv/Scripts/activate  (windows, ainakin minulla))
+
+$ pip install -r requirements.txt
+
+4. Määritä vielä tietokannan skeema komennolla
 
 $ psql < schema.sql
 

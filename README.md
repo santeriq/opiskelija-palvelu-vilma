@@ -1,4 +1,4 @@
-Yritin saada tämän toimimaan fly.io mutta en saanut, en ole täysin varma miten voit yhdistää database.
+Yritin saada tämän toimimaan fly.io mutta en saanut
 
 website -> __init__.py
 - "SECRET_KEY" tarvisee arvon, jätin .env tiedoston pois jossa se sijaitsee
@@ -6,6 +6,25 @@ website -> __init__.py
 
 schema.sql
 - valmiit komennot joilla luot taulukot ja lisäät niihin testitapauksia
+
+
+Kloonaa tämä repositorio omalle koneellesi ja siirry sen juurikansioon. Luo kansioon .env-tiedosto ja määritä sen sisältö seuraavanlaiseksi:
+
+Seuraavaksi aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla
+
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ venv/Scripts/activate  (windows, ainakin minulla))
+$ pip install -r requirements.txt (päivitetty 27.3.2023)
+Määritä vielä tietokannan skeema komennolla
+
+$ psql < schema.sql
+
+Nyt voit käynnistää sovelluksen komennolla
+
+$ flask run
+
+--------------------
 
 Valmiit testikäyttäjät:
 - admin1 (admin)

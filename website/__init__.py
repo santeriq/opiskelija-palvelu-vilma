@@ -12,7 +12,6 @@ def create_app():
     app.config["SECRET_KEY"] = getenv("SECRET_KEY")
     app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
     db.init_app(app)
-
     from .routes import routes
     from .auth import auth
 

@@ -1,12 +1,11 @@
 Yritin saada tämän toimimaan fly.io mutta en saanut, en ole täysin varma miten voit yhdistää database.
 
-website -> __init__py
+website -> __init__.py
 - "SECRET_KEY" tarvisee arvon, jätin .env tiedoston pois jossa se sijaitsee
 - "DATABASE_URL" tarvisee arvon, jätin .env tiedoston pois jossa se sijaitsee
 
 schema.sql
 - valmiit komennot joilla luot taulukot ja lisäät niihin testitapauksia
-
 
 Valmiit testikäyttäjät:
 - admin1 (admin)

@@ -65,36 +65,3 @@ def sign_up():
             login_user(user, remember=True)
             return redirect(url_for("routes.guest"))
     return render_template("sign_up.html", user=current_user)
-
-@auth.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for("auth.login"))
-
-@auth.route("sign-up", methods=["GET", "POST"])
-def sign_up():
-    if request.method == "POST":
-        username = request.form.get("username")
-        password1 = request.form.get("password1")
-        password2 = request.form.get("password2")
-        user = User(database.get_user_id(username))
-        if not functions.new_username(username):
-            flash("Käyttäjätunnus ei ole vapaa", category="error")
-        elif not functions.username_valid(username):
-            flash("Käyttäjätunnus tulee koostua aakkosista ja numeroista", category="error")
-        elif len(username) < 3:
-            flash("Käyttäjätunnuksen tulee olla vähintään 3 merkkiä pitkä", category="error")
-        elif len(username) > 18:
-            flash("Käyttäjätunnuksen tulee olla 18 merkkiä tai vähemmän", category="error")
-        elif password1 != password2:
-            flash("Salasanat eivät täsmää", category="error")
-        elif len(password1) < 8:
-            flash("Password must be at least 8 characters", category="error")
-        else:
-            flash("Käyttäjätunnus luotu", category="success")
-            sleep(0.5)
-            login_user(user, remember=True)
-            database.create_user(username, password1)
-            return redirect(url_for("routes.guest"))
-    return render_template("sign_up.html", user=current_user)

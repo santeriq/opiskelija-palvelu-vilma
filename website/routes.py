@@ -150,6 +150,7 @@ def view_role_requests():
 @login_required
 def accept_request():
     data = json.loads(request.data)
+    print(data)
     username = data["username"]
     print(username)
     check = functions.new_username(username)

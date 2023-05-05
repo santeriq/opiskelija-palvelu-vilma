@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+<title>{% block title %}Home{% endblock %}</title>
+
+{% block content %}
+<h5 align="center">{{ user.username }} (admin)</h5>
+
+<br/>
+<br/>
+
+
+<div class="col">
+
+<div class="row-1">
+<a href="admin/create-course">
+<button class="btn btn-primary btn-lg" style="width: 20%;">Luo kurssi</button>
+</a>
+</div>
+
+<br>
+
+<div class="row-2">
+<a href="admin/view-courses/sorted-by-name">
+<button class="btn btn-primary" style="width: 20%; margin-bottom: 1px;">Näytä kurssit</button>
+</a>
+</div>
+
+<div class="row-3">
+<a href="admin/edit-courses">
+<button class="btn btn-primary" style="width: 20%; margin-bottom: 1px;">Muokkaa kursseja</button>
+</a>
+</div>
+
+
+<div class="row-4">
+<a href="admin/view-users/sorted-by-id">
+<button class="btn btn-primary" style="width: 20%; margin-bottom: 1px;">Näytä käyttäjät</button>
+</a>
+</div>
+
+
+<div class="row-5">
+<a href="admin/view-students/sorted-by-id">
+<button class="btn btn-primary disabled" style="width: 20%; margin-bottom: 1px;">Näytä opiskelijat</button>
+</a>
+</div>
+
+
+<div class="row-6">
+<a href="admin/manage-users">
+<button class="btn btn-primary" style="width: 20%; margin-bottom: 1px;">Hallinnoi käyttäjiä</button>
+</a>
+</div>
+
+
+
+
+<br>
+<br>
+
+
+<div class="row-6">
+<a href="admin/view-role-requests">
+<button class="btn btn-primary" style="width: 50%;">Näytä opiskelijapyynnöt</button>
+</a>
+</div>
+
+
+</div>
+
+    
+
+{% endblock %}

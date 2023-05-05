@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+<title>{% block title %}Home{% endblock %}</title>
+
+{% block content %}
+<br>
+
+<div class="row">
+    <div align="center" class="col-3">Lähetetty</div>
+    <div align="center" class="col-3">Käyttäjätunnus</div>
+    <div align="center" class="col-3">Viesti</div>
+</div>
+
+<div class="row">
+    <a align="center" class="col-3" href="">
+    <button class="btn btn-primary" disabled style="width: 110%;">x</button>
+    </a>
+    <a align="center" class="col-3" href="">
+    <button class="btn btn-primary" disabled style="width: 110%;">x</button>
+    </a>
+    <a align="center" class="col-3" href="">
+    <button class="btn btn-primary" disabled style="width: 100%;">x</button>
+    </a>
+</div>
+
+<br>
+
+<table id="requestsTable" class="table">
+<tbody>
+    {% for request in requests %}
+    <tr>
+        <td>{{ request[2] }}</td>
+        <td>{{ request[0] }}</td>
+        <td align="right"><textarea readonly>{{ request[1] }}</textarea></td>
+        <td><button class="btn btn-success" style="width: 100%; margin-left: 5%;">Hyväksy</button></td>
+        <td><button class="btn" style="width: 80%; margin-left: 1%;">Hylkää</button></td>
+    </tr>
+    <!--onClick="acceptRequest() AND onClick="rejectRequest() TO later for buttons""-->
+    {% endfor %}
+</tbody>
+</table>
+
+<script>
+   // var currentRowID, table = document.getElementById('requestsTable');
+   // var rows = table.rows;
+   // var row_count = rows.length;
+
+   // for(var i = 0; i < row_count; i++) {
+   //     rows[i].onclick = function() {
+   //     currentRowID = this.id;
+   //     };
+   //     }
+</script>
+
+
+
+{% endblock %}

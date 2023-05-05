@@ -6,7 +6,7 @@ class User(UserMixin):
     def __init__(self, id):
         super().__init__()
         if id != "None":
-            self.data = db.session.execute(text("SELECT * FROM users WHERE id=:id"), {"id":id}).fetchone()
+            self.data = db.session.execute(text('SELECT * FROM "Users" WHERE id=:id'), {"id":id}).fetchone()
             if self.data is not None:
                 self.id = self.data[0]
                 self.username = self.data[1]

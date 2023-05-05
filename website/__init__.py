@@ -14,9 +14,11 @@ def create_app():
     db.init_app(app)
     from .routes import routes
     from .auth import auth
+    from .users import admin
 
     app.register_blueprint(routes, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
+    app.register_blueprint(admin.admin, url_prefix="/admin")
 
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"

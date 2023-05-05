@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+<title>{% block title %}Home{% endblock %}</title>
+
+{% block content %}
+
+
+<br>
+
+<div class="row">
+    <div align="center" class="col-4">id</div>
+    <div align="center" class="col-4">Käyttäjätunnus</div>
+    <div align="center" class="col-4">Rooli</div>
+</div>
+
+
+<div class="row">
+    <a align="center" class="col-4" href="sorted-by-id">
+    <button class="btn btn-primary" style="width: 114%;">x</button>
+    </a>
+    <a align="center" class="col-4" href="sorted-by-username">
+    <button class="btn btn-primary" style="width: 114%;">x</button>
+    </a>
+    <a align="center" class="col-4">
+    <button class="btn btn-primary disabled" style="width: 100%;">x</button>
+    </a>
+</div>
+
+
+<ul class="list-group list-group-flush" id="users">
+{% for user in users_list %}
+{% if user[2] == "none" %}
+<li class="list-group-item">
+    <div class="row">
+        <div align="center" class="col-4">{{ user[0] }}</div>
+        <div align="center" class="col-4">{{ user[1] }}</div>
+        <div align="center" class="col-4">-</div>
+    </div>
+</li>
+{% else %}
+<li class="list-group-item">
+<div class="row">
+    <div align="center" class="col-4">{{ user[0] }}</div>
+    <div align="center" class="col-4">{{ user[1] }}</div>
+    <div align="center" class="col-4">{{ user[2] }}</div>
+</div>
+</li>
+{% endif %}
+{% endfor %}
+</ul>
+
+
+{% endblock %}

@@ -11,11 +11,18 @@ schema.sql
 
 !! HUOMIOITAVAA !!
 
+Sovelluksessa on CSRF-haavoittuvuus (en kerennyt korjaamaan tätä, mahdollisesti myöhemmin)
+
+
+Databasesta:
+
 Sain palautetta:
 
 "Sain useita virheitä yrittäessäni kirjautua tai luoda kursseja, ja jouduin antamaan postgres käyttäjälle oikeudet komennolla "GRANT (komentoja) ON (kohdetaulukko tai arvo) TO (käyttäjä)". Saattaa olla tarkoituksellista, mutta suosittelen kirjoittamaan ohjeet README:en jos sovellus ei mene fly.ioon."
 
 Voi siis mahdollisesti olla ongelmia databasen kanssa, en tiedä mistä tämä johtuu.
+
+Jouduin myös poistamaan REFERENCES yrittäessä siirtää sovellusta fly.io, tämän vuoksi schema.sql ei ole niitä
 
 ----------------------------
 **Ohjeet**

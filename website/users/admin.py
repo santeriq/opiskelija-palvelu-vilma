@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, flash, request, jsonify
+from flask import Blueprint, redirect, render_template, flash, request, jsonify, session, abort
 from flask_login import login_required, current_user
 import json
 import website.database as database
@@ -12,6 +12,8 @@ admin = Blueprint("admin", __name__)
 def create_course():
     if current_user.role == "admin":
         if request.method == "POST":
+            if session["csrf_token"] != request.form["csrf_token"]:
+               abort(403)
             course_name = request.form.get("course_name")
             course_credits = request.form.get("course_credits")
             course_key = request.form.get("course_key")
@@ -39,6 +41,8 @@ def create_course():
 def edit_courses():
     if current_user.role == "admin":
         if request.method == "POST":
+            if session["csrf_token"] != request.form["csrf_token"]:
+               abort(403)
             course_name = request.form.get("course_name")
             course_credits = request.form.get("course_credits")
             course_key = request.form.get("course_key")
@@ -103,6 +107,8 @@ def reject_request():
 def manage_users():
     if current_user.role == "admin":
         if request.method == "POST":
+            if session["csrf_token"] != request.form["csrf_token"]:
+               abort(403)
             username = request.form.get("username")
             role = request.form.get("user_role")
             delete = request.form.get("delete")

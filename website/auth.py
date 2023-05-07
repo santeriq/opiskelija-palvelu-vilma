@@ -1,9 +1,10 @@
 from time import sleep
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_user, login_required, logout_user, current_user
 from website.models import User
 import website.functions as functions
 import website.database as database
+import secrets
 
 auth = Blueprint("auth", __name__)
 
@@ -23,6 +24,7 @@ def login():
         elif check is True:
             sleep(0.5)
             login_user(user, remember=True)
+            session["csrf_token"] = secrets.token_hex(16)
             if user.role == "admin":
                 return redirect(url_for("routes.admin"))
             elif user.role == "teacher":

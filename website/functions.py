@@ -62,3 +62,9 @@ def check_is_in_course(course_key: str, username: str):
     if len(check) > 0:
         return True
     return False
+
+def check_has_completed_course(course_key: str, username: str):
+    check = database.get_student_course_grade(course_key, username)
+    if check is None:
+        return False
+    return True

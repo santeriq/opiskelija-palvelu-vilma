@@ -1,6 +1,5 @@
-from flask import Blueprint, redirect, render_template, flash, request, jsonify
+from flask import Blueprint, redirect, render_template, flash, request, session, abort
 from flask_login import login_required, current_user
-import json
 import website.database as database
 import website.functions as functions
 
@@ -14,6 +13,8 @@ def join_course():
     role = current_user.role
     if role == "admin" or role == "teacher" or role == "student":
         if request.method == "POST":
+            if session["csrf_token"] != request.form["csrf_token"]:
+               abort(403)
             username = current_user.username
             course_key = request.form.get("course_key").lower()
             confirm = request.form.get("confirm")
@@ -38,6 +39,8 @@ def leave_course():
     role = current_user.role
     if role == "admin" or role == "teacher" or role == "student":
         if request.method == "POST":
+            if session["csrf_token"] != request.form["csrf_token"]:
+               abort(403)
             username = current_user.username
             course_key = request.form.get("course_key").lower()
             confirm = request.form.get("confirm")
@@ -72,6 +75,8 @@ def manage_course(key):
     students = database.get_course_students(key)
     if role == "admin" or role == "teacher":
         if request.method == "POST":
+            if session["csrf_token"] != request.form["csrf_token"]:
+               abort(403)
             username = request.form.get("username")
             confirm = request.form.get("remove")
             grade = request.form.get("grade")

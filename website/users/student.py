@@ -1,6 +1,5 @@
-from flask import Blueprint, redirect, render_template, flash, request, jsonify
+from flask import Blueprint, redirect, render_template, flash, request, session, abort
 from flask_login import login_required, current_user
-import json
 import website.database as database
 import website.functions as functions
 
@@ -14,6 +13,8 @@ def join_course():
     role = current_user.role
     if role == "admin" or role == "teacher" or role == "student":
         if request.method == "POST":
+            if session["csrf_token"] != request.form["csrf_token"]:
+               abort(403)
             username = current_user.username
             course_key = request.form.get("course_key").lower()
             confirm = request.form.get("confirm")
@@ -38,6 +39,8 @@ def leave_course():
     role = current_user.role
     if role == "admin" or role == "teacher" or role == "student":
         if request.method == "POST":
+            if session["csrf_token"] != request.form["csrf_token"]:
+               abort(403)
             username = current_user.username
             course_key = request.form.get("course_key").lower()
             confirm = request.form.get("confirm")
@@ -48,6 +51,8 @@ def leave_course():
                 flash(f"Poistuminen epäonnistui", category="error")
             elif functions.check_is_in_course(course_key, username) is False:
                 flash(f'Poistuminen epäonnistui, et ole kurssilla "{course_key}"', category="error")
+            elif functions.check_has_completed_course(course_key, username):
+                flash(f'Poistuminen epäonnistui, olet suorittanut kurssin {course_key}')
             else:
                 database.leave_course(course_key, username)
                 flash(f'Poistuit kurssilta "{course_key}"')

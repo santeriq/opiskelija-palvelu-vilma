@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, flash, request
+from flask import Blueprint, redirect, render_template, flash, request, session, abort
 from flask_login import login_required, current_user
 import website.database as database
 import website.functions as functions
@@ -32,6 +32,8 @@ def teacher():
     username = current_user.username
     if current_user.role == "teacher":
         if request.method == "POST":
+            if session["csrf_token"] != request.form["csrf_token"]:
+               abort(403)
             key = request.form.get("course_key").lower()
             if functions.new_course_key(key):
                 flash("Kurssiavainta ei löytynyt", category="error")
@@ -58,6 +60,8 @@ def student():
 @login_required
 def guest():
     if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
         username = current_user.username
         message = request.form.get("message")
         check_new_request = functions.new_role_request(username)

@@ -490,6 +490,20 @@ def join_course(key: str, username: str):
     db.session.commit()
     return f"{username} joined the course {key}"
 
+def get_student_course_grade(key: str, username: str):
+    key.lower()
+    username.lower()
+    sql = text('''
+                    SELECT grade
+                    FROM "InCourse"
+                    WHERE course_tag=:course_tag
+                    AND username=:username
+            ''')
+    data = db.session.execute(sql, {"course_tag":key, "username":username}).fetchone()
+    if data is None:
+        return None
+    return data[0]
+
 def leave_course(key: str, username: str):
     key.lower()
     username.lower()
@@ -616,6 +630,7 @@ def get_student_completed_courses_sorted_by(username: str, column: str, desc: bo
                         FROM "Courses", "InCourse"
                         WHERE "Courses".tag="InCourse".course_tag
                         AND "InCourse".username=:username
+                        AND "InCourse".grade>0
                         ORDER BY "Courses".name
                 ''')
         
@@ -625,6 +640,7 @@ def get_student_completed_courses_sorted_by(username: str, column: str, desc: bo
                         FROM "Courses", "InCourse"
                         WHERE "Courses".tag="InCourse".course_tag
                         AND "InCourse".username=:username
+                        AND "InCourse".grade>0
                         ORDER BY "Courses".name DESC
                 ''')
         
@@ -634,6 +650,7 @@ def get_student_completed_courses_sorted_by(username: str, column: str, desc: bo
                         FROM "Courses", "InCourse"
                         WHERE "Courses".tag="InCourse".course_tag
                         AND "InCourse".username=:username
+                        AND "InCourse".grade>0
                         ORDER BY "Courses".tag
                 ''')
         
@@ -643,6 +660,7 @@ def get_student_completed_courses_sorted_by(username: str, column: str, desc: bo
                         FROM "Courses", "InCourse"
                         WHERE "Courses".tag="InCourse".course_tag
                         AND "InCourse".username=:username
+                        AND "InCourse".grade>0
                         ORDER BY "Courses".tag DESC
                 ''')
         
@@ -652,6 +670,7 @@ def get_student_completed_courses_sorted_by(username: str, column: str, desc: bo
                         FROM "Courses", "InCourse"
                         WHERE "Courses".tag="InCourse".course_tag
                         AND "InCourse".username=:username
+                        AND "InCourse".grade>0
                         ORDER BY "Courses".credits
                 ''')
         
@@ -661,6 +680,7 @@ def get_student_completed_courses_sorted_by(username: str, column: str, desc: bo
                         FROM "Courses", "InCourse"
                         WHERE "Courses".tag="InCourse".course_tag
                         AND "InCourse".username=:username
+                        AND "InCourse".grade>0
                         ORDER BY "Courses".credits DESC
                 ''')
         
@@ -670,6 +690,7 @@ def get_student_completed_courses_sorted_by(username: str, column: str, desc: bo
                         FROM "Courses", "InCourse"
                         WHERE "Courses".tag="InCourse".course_tag
                         AND "InCourse".username=:username
+                        AND "InCourse".grade>0
                         ORDER BY "InCourse".grade
                 ''')
         
@@ -679,6 +700,7 @@ def get_student_completed_courses_sorted_by(username: str, column: str, desc: bo
                         FROM "Courses", "InCourse"
                         WHERE "Courses".tag="InCourse".course_tag
                         AND "InCourse".username=:username
+                        AND "InCourse".grade>0
                         ORDER BY "InCourse".grade DESC
                 ''')
         

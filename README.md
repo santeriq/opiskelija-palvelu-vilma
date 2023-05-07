@@ -1,11 +1,21 @@
 Yritin saada tämän toimimaan fly.io mutta en saanut
 
 website -> __init__.py
-- "SECRET_KEY" tarvisee arvon, jätin .env tiedoston pois jossa se sijaitsee
+- "SECRET_KEY" tarvitsee arvon, jätin .env tiedoston pois jossa se sijaitsee
 - "DATABASE_URL" tarvisee arvon, jätin .env tiedoston pois jossa se sijaitsee
 
 schema.sql
 - valmiit komennot joilla luot taulukot ja lisäät niihin testitapauksia
+
+
+
+!! HUOMIOITAVAA !!
+
+Sain palautetta:
+
+"Sain useita virheitä yrittäessäni kirjautua tai luoda kursseja, ja jouduin antamaan postgres käyttäjälle oikeudet komennolla "GRANT (komentoja) ON (kohdetaulukko tai arvo) TO (käyttäjä)". Saattaa olla tarkoituksellista, mutta suosittelen kirjoittamaan ohjeet README:en jos sovellus ei mene fly.ioon."
+
+Voi siis mahdollisesti olla ongelmia databasen kanssa, en tiedä mistä tämä johtuu.
 
 ----------------------------
 **Ohjeet**

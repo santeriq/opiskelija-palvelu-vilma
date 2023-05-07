@@ -15,10 +15,15 @@ def create_app():
     from .routes import routes
     from .auth import auth
     from .users import admin
+    from .users import teacher
+    from .users import student
 
     app.register_blueprint(routes, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
     app.register_blueprint(admin.admin, url_prefix="/admin")
+    app.register_blueprint(teacher.teacher, url_prefix="/teacher")
+    app.register_blueprint(student.student, url_prefix="/student")
+
 
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+<title>{% block title %}Vilma{% endblock %}</title>
+
+
+{% block content %}
+
+
+<form method="POST">
+    <h3 align="center">Poistu kurssilta</h3>
+    <div class="form-group">
+        <input type="text" class="form-control" id="course_key" name="course_key" placeholder="Anna kurssiavain"/>
+    </div>
+    <div>
+        <input type="text" class="form-control" id="confirm" name="confirm" placeholder="Kirjoita POISTU"/>
+    </div>
+    <br/>
+    <button type="submit" class="btn btn-primary" style="width: 10%;">Tallenna</button>
+</form>
+
+
+{% endblock %}

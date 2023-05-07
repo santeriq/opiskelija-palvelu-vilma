@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+<title>{% block title %}Vilma{% endblock %}</title>
+
+{% block content %}
+
+
+<br>
+
+<div class="row">
+    <div align="center" class="col-4">Kurssi</div>
+    <div align="center" class="col-4">Opintopistemäärä</div>
+    <div align="center" class="col-4">Avain</div>
+</div>
+
+<br>
+
+<ul class="list-group list-group-flush" id="courses">
+{% for course in courses_list %}
+<li class="list-group-item">
+<div class="row">
+    <div align="center" class="col-4">{{ course[0] }}</div>
+    <div align="center" class="col-4">{{ course[1] }}</div>
+    <div align="center" class="col-4">{{ course[2] }}</div>
+</div>
+</li>
+{% endfor %}
+</ul>
+
+
+{% endblock %}

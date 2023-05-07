@@ -22,7 +22,7 @@ SECRET_KEY=
 
 $ python3 -m venv venv
 
-$ source venv/bin/activate TAI $ venv/Scripts/activate  (windows, ainakin minulla))
+$ source venv/bin/activate TAI $ venv/Scripts/activate  (windows, ainakin minulla)
 
 $ pip install -r requirements.txt
 
@@ -38,19 +38,20 @@ $ flask run
 
 Valmiit testikäyttäjät:
 - admin1 (admin)
-- teacher1 (teacher) (not ready)
-- student1 (student) (not ready)
+- teacher1 (teacher)
+- student1 (student)
 - user1 (guest)
+- uesr2 (guest)
 
 Salasana: 
 - password1
 
 
 Admin:
-- pystyy luomaan kursseja (valmis)
-- pystyy muokkaamaan kurrseja (valmis)
-- pystyy näkemään olemassa olevat kurssit (valmis)
-- pystyy hyväksymään/hylkäämään opiskelijapyynnön (ei vielä toimiva)
+- pystyy luomaan kursseja
+- pystyy muokkaamaan kurrseja
+- pystyy näkemään olemassa olevat kurssit
+- pystyy hyväksymään/hylkäämään opiskelijapyynnön
 - pystyy lisäämään käyttäjille rooleja
 - pystyy poistamaan palvelun käyttäjiä
 - pystyy näkemään kaikki palvelun käyttäjät

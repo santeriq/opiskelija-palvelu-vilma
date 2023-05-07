@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+<title>{% block title %}Vilma{% endblock %}</title>
+
+{% block content %}
+<h5 align="center">{{ user.username }} (opiskelija)</h5>
+<br/>
+<br/>
+<div class="col">
+
+
+<div class="row-1">
+<a href="teacher/join-course">
+<button class="btn btn-success btn-lg" style="width: 20%; margin-bottom: 1px;">Liity kurssille</button>
+</a>
+</div>
+
+
+
+<div class="row-2">
+<a href="teacher/leave-course">
+<button class="btn btn-info" style="width: 20%; margin-bottom: 1px;">Poistu kurssilta</button>
+</a>
+</div>
+
+
+<div class="row-3">
+<a href="teacher/view-my-courses">
+<button class="btn btn-info" style="width: 20%; margin-bottom: 1px;">Näytä kurssini</button>
+</a>
+</div>
+
+<div class="row-4">
+<a href="admin/view-courses/sorted-by-name">
+<button class="btn btn-info" style="width: 20%; margin-bottom: 1px;">Näytä kaikki kurssit</button>
+</a>
+</div>
+
+<br>
+<br>
+<br>
+
+<div class="row-5">
+<font size="5">Keskiarvo:  </font>
+<font size="6">{{ gpa }}</font>
+</div>
+
+<div class="row-6">
+<font size="5">Opintopisteet:  </font>
+<font size="6">{{ credits }}</font>
+</div>
+
+<div class="row-7">
+<a href="student/view-credits/sorted-by-grade-desc">
+<button class="btn btn-primary" style="width: 20%; margin-bottom: 1px;">Näytä suoritukset</button>
+</a>
+</div>
+
+
+
+</div>
+{% endblock %}

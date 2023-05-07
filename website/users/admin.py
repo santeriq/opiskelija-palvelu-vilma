@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, flash, url_for, request, jsonify
+from flask import Blueprint, redirect, render_template, flash, request, jsonify
 from flask_login import login_required, current_user
 import json
 import website.database as database
@@ -70,21 +70,20 @@ def edit_courses():
 @login_required
 def view_role_requests():
     if current_user.role == "admin" or current_user.role == "teacher":
-        return render_template("admin/tools/view_role_requests.html", requests=database.get_role_requests_list(), user=current_user)
+        requests = database.get_role_requests_list()
+        count = len(requests)
+        return render_template("admin/tools/view_role_requests.html", count=count, requests=requests, user=current_user)
     return redirect("/")
 
 @admin.route("/accept-request", methods=["POST"])
 @login_required
 def accept_request():
     data = json.loads(request.data)
-    print(data)
     username = data["username"]
-    print(username)
     check = functions.new_username(username)
     if check is False:
-       # database.accept_role_request(username)
+        database.accept_role_request(username)
         flash(f"Hyväksyttiin {username} pyyntö", category="success")
-    
     return jsonify({})
     
 @admin.route("/reject-request", methods=["POST"])
@@ -92,10 +91,9 @@ def accept_request():
 def reject_request():
     data = json.loads(request.data)
     username = data["username"]
-    print(username)
     check = functions.new_username(username)
     if check is False:
-       # database.reject_role_request(username)
+        database.reject_role_request(username)
         flash(f"Hylättiin {username} pyyntö", category="error")
     
     return jsonify({})
@@ -163,10 +161,6 @@ def view_users_sorted_by_username_desc():
 
 
 
-
-
-####
-
 @admin.route("/view-students/sorted-by-id")
 @login_required
 def view_students_sorted_by_id():
@@ -175,10 +169,45 @@ def view_students_sorted_by_id():
         return render_template("admin/tools/view_students/id.html", users_list=users, user=current_user)
     return redirect("/")
 
+@admin.route("/view-students/sorted-by-id-desc")
+@login_required
+def view_students_sorted_by_id_desc():
+    if current_user.role == "admin":
+        users = database.get_students_list_sorted_by("id", True)
+        return render_template("admin/tools/view_students/id_desc.html", users_list=users, user=current_user)
+    return redirect("/")
 
+@admin.route("/view-students/sorted-by-username")
+@login_required
+def view_students_sorted_by_username():
+    if current_user.role == "admin":
+        users = database.get_students_list_sorted_by("username")
+        return render_template("admin/tools/view_students/username.html", users_list=users, user=current_user)
+    return redirect("/")
 
-####
+@admin.route("/view-students/sorted-by-username-desc")
+@login_required
+def view_students_sorted_by_username_desc():
+    if current_user.role == "admin":
+        users = database.get_students_list_sorted_by("username", True)
+        return render_template("admin/tools/view_students/username_desc.html", users_list=users, user=current_user)
+    return redirect("/")
 
+@admin.route("/view-students/sorted-by-credits")
+@login_required
+def view_students_sorted_by_credits():
+    if current_user.role == "admin":
+        users = database.get_students_list_sorted_by("credits")
+        return render_template("admin/tools/view_students/credits.html", users_list=users, user=current_user)
+    return redirect("/")
+
+@admin.route("/view-students/sorted-by-credits-desc")
+@login_required
+def view_students_sorted_by_credits_desc():
+    if current_user.role == "admin":
+        users = database.get_students_list_sorted_by("credits", True)
+        return render_template("admin/tools/view_students/credits_desc.html", users_list=users, user=current_user)
+    return redirect("/")
 
 
 @admin.route("/view-courses/sorted-by-name")

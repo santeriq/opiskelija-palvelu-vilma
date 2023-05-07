@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-<title>{% block title %}Home{% endblock %}</title>
+<title>{% block title %}Vima{% endblock %}</title>
 
 {% block content %}
 <br>
@@ -32,9 +32,9 @@
 {% for course in courses %}
 <li class="list-group-item">
 <div class="row">
-    <div align="center" class="col-3">{{ course[0] }}</div>
+    <div align="left" class="col-3">{{ course[0] }}</div>
     <div align="center" class="col-3">{{ course[2] }}</div>
-    <div align="center" class="col-3">{{ course[1] }}</div>
+    <div align="left" class="col-3">{{ course[1] }}</div>
     <div align="center" class="col-3">{{ course[3] }}</div>
 </div>
 </li>

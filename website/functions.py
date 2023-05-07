@@ -27,6 +27,12 @@ def new_username(username: str):
         return True
     return False
 
+def new_student(username: str):
+    check = database.search_student(username)
+    if len(check) == 0:
+        return True
+    return False
+
 def username_valid(username: str):
     character_set = ascii_letters + "0123456789"
     for character in username:
@@ -46,3 +52,13 @@ def new_role_request(username: str):
         return True
     return False
 
+def check_course_open(course_key: str):
+    check = database.get_course_info(course_key)
+    status = check[4]
+    return status
+
+def check_is_in_course(course_key: str, username: str):
+    check = database.search_user_in_course(course_key, username)
+    if len(check) > 0:
+        return True
+    return False

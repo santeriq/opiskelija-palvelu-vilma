@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+<title>{% block title %}Vilma{% endblock %}</title>
+
+
+
+{% block content %}
+
+
+<br>
+
+<form method="POST">
+    <h3 align="center">Kurssihallinta</h3>
+    <div class="form-group">
+        <input type="hidden" id="course_key" name="course_key" value="{{ key }}"
+    </div>
+    <div class="form-group">
+        <label for="username">Opiskelija</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Anna käyttäjänimi"/>    
+    </div>
+    <div class="form-group">
+        <label for="grade">Poista kurssilta</label>
+        <input type="text" class="form-control" id="remove" name="remove" placeholder="Kirjoita POISTA"/>    
+    </div>
+    <div class="form-group">
+        <label for="grade">Arvosana</label>
+        <select class="form-control" id="grade" name="grade">
+            <option>5</option>
+            <option>4</option>
+            <option>3</option>
+            <option>2</option>
+            <option>1</option>
+        </select>
+    <br/>
+    <button type="submit" class="btn btn-primary" style="width: 10%;">Tallenna</button>
+</form>
+
+<br>
+<br>
+
+<div class="row">
+    <div align="center" class="col-4">Opiskelija</div>
+    <div align="center" class="col-4">Arvosana</div>
+</div>
+
+<br>
+
+<ul class="list-group list-group-flush" id="students">
+{% for student in students_list %}
+    {% if student[1] == 0 %}
+        <li class="list-group-item">
+        <div class="row">
+            <div align="center" class="col-4">{{ student[0] }}</div>
+            <div align="center" class="col-4"></div>
+        </div>
+        </li>  
+    {% else %}
+        <li class="list-group-item">
+        <div class="row">
+            <div align="center" class="col-4">{{ student[0] }}</div>
+            <div align="center" class="col-4">{{ student[1] }}</div>
+        </div>
+        </li>  
+    {% endif %}
+{% endfor %}
+</ul>
+
+
+{% endblock %}

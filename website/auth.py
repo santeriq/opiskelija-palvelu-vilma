@@ -11,7 +11,7 @@ auth = Blueprint("auth", __name__)
 @auth.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        username = request.form.get("username")
+        username = request.form.get("username").lower()
         password = request.form.get("password")
         check = functions.login(username, password)
         username_not_exist = functions.new_username(username)
@@ -42,7 +42,7 @@ def logout():
 @auth.route("/sign-up", methods=["GET", "POST"])
 def sign_up():
     if request.method == "POST":
-        username = request.form.get("username")
+        username = request.form.get("username").lower()
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
         if not functions.new_username(username):

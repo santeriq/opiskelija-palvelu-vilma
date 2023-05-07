@@ -2,15 +2,16 @@
 <title>{% block title %}Vilma{% endblock %}</title>
 
 {% block content %}
+
+
 <br>
 
 <div class="row">
-    <div align="center" class="col-3">Kurssin nimi</div>
-    <div align="center" class="col-3">Opintopisteet</div>
-    <div align="center" class="col-3">Kurssiavain</div>
-    <div align="center" class="col-3">Avoin</div>
+    <div align="center" class="col-3">Kurssi</div>
+    <div align="center" class="col-3">Opintopistemäärä</div>
+    <div align="center" class="col-3">Avain</div>
+    <div align="center" class="col-3">Arvosana</div>
 </div>
-
 
 <div class="row">
     <a align="center" class="col-3" href="sorted-by-name-desc">
@@ -22,26 +23,25 @@
     <a align="center" class="col-3" href="sorted-by-key">
     <button class="btn btn-primary" style="width: 114%;">x</button>
     </a>
-    <a align="center" class="col-3" href="sorted-by-status">
+    <a align="center" class="col-3" href="sorted-by-grade">
     <button class="btn btn-primary" style="width: 100%;">x</button>
     </a>
 </div>
 
+<br>
 
-<ul class="list-group list-group-flush" id="courses">
-{% for course in courses %}
+<ul class="list-group list-group-flush" id="credits">
+{% for credit in credits %}
 <li class="list-group-item">
 <div class="row">
-    <div align="left" class="col-3">{{ course[0] }}</div>
-    <div align="center" class="col-3">{{ course[2] }}</div>
-    <div align="left" class="col-3">{{ course[1] }}</div>
-    <div align="center" class="col-3">{{ course[3] }}</div>
+    <div align="left" class="col-3">{{ credit[0] }}</div>
+    <div align="center" class="col-3">{{ credit[1] }}</div>
+    <div align="left" class="col-3">{{ credit[2] }}</div>
+    <div align="center" class="col-3">{{ credit[3] }}</div>
 </div>
 </li>
 {% endfor %}
 </ul>
-
-
 
 
 {% endblock %}

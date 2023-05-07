@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+<title>{% block title %}Vilma{% endblock %}</title>
+
+{% block content %}
+<h5 align="center">{{ user.username }} (opettaja)</h5>
+<br/>
+<br/>
+<div class="col">
+
+
+<div class="row-1">
+<a href="teacher/join-course">
+<button class="btn btn-success btn-lg" style="width: 20%; margin-bottom: 1px;">Liity kurssille</button>
+</a>
+</div>
+
+
+
+<div class="row-2">
+<a href="teacher/leave-course">
+<button class="btn btn-info" style="width: 20%; margin-bottom: 1px;">Poistu kurssilta</button>
+</a>
+</div>
+
+
+<div class="row-3">
+<a href="teacher/view-my-courses">
+<button class="btn btn-info" style="width: 20%; margin-bottom: 1px;">Näytä kurssini</button>
+</a>
+</div>
+
+
+<br>
+<br>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="course_key">Kurssi</label>
+        <input style="width: 20%;" type="text" class="form-control" id="course_key" name="course_key" placeholder="Kurssiavain"/>    
+    </div>
+        <a href="teacher/manage-course">
+        <button type="submit" class="btn btn-primary">Hallinnoi</button>
+        </a>
+</form>
+
+    
+
+<br>
+<br>
+
+<div class="row-6">
+<a href="admin/view-courses/sorted-by-name">
+<button class="btn btn-info" style="width: 20%; margin-bottom: 1px;">Näytä kaikki kurssit</button>
+</a>
+</div>
+
+
+<div class="row-7">
+<a href="admin/view-role-requests">
+<button class="btn btn-info" style="width: 20%; margin-bottom: 1px;">Näytä opiskelijapyynnöt</button>
+</a>
+</div>
+
+
+
+</div>
+{% endblock %}

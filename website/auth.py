@@ -1,5 +1,4 @@
-from time import sleep
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from flask import Blueprint, render_template, flash, redirect, url_for, session, request
 from flask_login import login_user, login_required, logout_user, current_user
 from website.models import User
 import website.functions as functions
@@ -15,14 +14,12 @@ def login():
         username = request.form.get("username").lower()
         password = request.form.get("password")
         check = functions.login(username, password)
-        username_not_exist = functions.new_username(username)
         user = User(database.get_user_id(username))
-        if username_not_exist:
+        if functions.new_username(username):
             flash("Käyttäjätunnusta ei löytynyt", category="error")
-        elif check is False:
+        elif not check:
             flash("Väärä salasana", category="error")
-        elif check is True:
-            sleep(0.5)
+        elif check:
             login_user(user, remember=True)
             session["csrf_token"] = secrets.token_hex(16)
             if user.role == "admin":
@@ -35,11 +32,13 @@ def login():
                 return redirect(url_for("routes.guest"))
     return render_template("login.html", user=current_user)
 
+
 @auth.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for("auth.login"))
+
 
 @auth.route("/sign-up", methods=["GET", "POST"])
 def sign_up():

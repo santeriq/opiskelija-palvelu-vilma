@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, flash, request, session, abort
+from flask import Blueprint, redirect, render_template, flash, abort, request, session
 from flask_login import login_required, current_user
 import website.database as database
 import website.functions as functions
@@ -10,14 +10,16 @@ routes = Blueprint("routes", __name__)
 @routes.route("/")
 @login_required
 def home():
-    if current_user.role == "admin":
+    role = current_user.role
+    if role == "admin":
         return redirect(("/admin"))
-    elif current_user.role == "teacher":
+    elif role == "teacher":
         return redirect("/teacher")
-    elif current_user.role == "student":
+    elif role == "student":
         return redirect("/student")
-    elif current_user.role == "none":
+    elif role == "none":
         return redirect("/guest")
+
 
 @routes.route("/admin")
 @login_required
@@ -25,6 +27,7 @@ def admin():
     if current_user.role == "admin":
         return render_template("admin/logged_in.html", user=current_user)
     return redirect("/")
+
 
 @routes.route("/teacher", methods=["GET", "POST"])
 @login_required
@@ -44,6 +47,7 @@ def teacher():
         return render_template("teacher/logged_in.html", user=current_user)
     return redirect("/")
 
+
 @routes.route("/student")
 @login_required
 def student():
@@ -56,6 +60,7 @@ def student():
         return render_template("student/logged_in.html", gpa=gpa, credits=credits, user=current_user)
     return redirect("/")
 
+
 @routes.route("/guest", methods=["GET", "POST"])
 @login_required
 def guest():
@@ -64,10 +69,9 @@ def guest():
             abort(403)
         username = current_user.username
         message = request.form.get("message")
-        check_new_request = functions.new_role_request(username)
         if len(message) > 200:
             flash("Viesti liian pitkä", category="error")
-        elif check_new_request:
+        elif functions.new_role_request(username):
             database.create_role_request(username, message)
             flash("Pyyntö lähetetty", category="success")
         else:

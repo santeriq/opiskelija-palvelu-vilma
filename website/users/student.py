@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, flash, request, session, abort
+from flask import Blueprint, redirect, render_template, flash, abort, request, session
 from flask_login import login_required, current_user
 import website.database as database
 import website.functions as functions
@@ -11,15 +11,14 @@ student = Blueprint("student", __name__)
 @login_required
 def join_course():
     role = current_user.role
+    username = current_user.username
     if role == "admin" or role == "teacher" or role == "student":
         if request.method == "POST":
             if session["csrf_token"] != request.form["csrf_token"]:
                abort(403)
-            username = current_user.username
             course_key = request.form.get("course_key").lower()
             confirm = request.form.get("confirm")
-            new_key = functions.new_course_key(course_key)
-            if new_key is True:
+            if functions.new_course_key(course_key):
                 flash(f'Liittyminen epäonnistui, kurssiavainta "{course_key}" ei löytynyt', category="error")
             elif confirm != "LIITY":
                 flash(f"Liittyminen epäonnistui", category="error")
@@ -33,26 +32,26 @@ def join_course():
         return render_template("teacher/tools/join_course.html", user=current_user)
     return redirect("/")
 
+
 @student.route("/leave-course", methods=["GET", "POST"])
 @login_required
 def leave_course():
     role = current_user.role
+    username = current_user.username
     if role == "admin" or role == "teacher" or role == "student":
         if request.method == "POST":
             if session["csrf_token"] != request.form["csrf_token"]:
                abort(403)
-            username = current_user.username
             course_key = request.form.get("course_key").lower()
             confirm = request.form.get("confirm")
-            new_key = functions.new_course_key(course_key)
-            if new_key is True:
+            if functions.new_course_key(course_key):
                 flash(f'Kurssiavainta "{course_key}" ei löytynyt', category="error")
             elif confirm != "POISTU":
                 flash(f"Poistuminen epäonnistui", category="error")
             elif functions.check_is_in_course(course_key, username) is False:
                 flash(f'Poistuminen epäonnistui, et ole kurssilla "{course_key}"', category="error")
             elif functions.check_has_completed_course(course_key, username):
-                flash(f'Poistuminen epäonnistui, olet suorittanut kurssin {course_key}')
+                flash(f'Poistuminen epäonnistui, olet suorittanut kurssin "{course_key}"', category="error")
             else:
                 database.leave_course(course_key, username)
                 flash(f'Poistuit kurssilta "{course_key}"')
@@ -66,8 +65,8 @@ def view_my_courses():
     role = current_user.role
     username = current_user.username
     if role == "admin" or role == "teacher" or role == "student":
-        my_courses = database.get_user_courses(username)
-        return render_template("teacher/tools/view_my_courses.html", courses_list=my_courses, user=current_user)
+        courses = database.get_user_courses(username)
+        return render_template("teacher/tools/view_my_courses.html", courses_list=courses, user=current_user)
     return redirect("/")
 
 
@@ -81,6 +80,7 @@ def view_credits_sorted_by_grade():
         return render_template("student/tools/view_credits/grade.html", credits=credits, user=current_user)
     return redirect("/")
 
+
 @student.route("/view-credits/sorted-by-grade-desc")
 @login_required
 def view_credits_sorted_by_grade_desc():
@@ -90,6 +90,7 @@ def view_credits_sorted_by_grade_desc():
         credits = database.get_student_completed_courses_sorted_by(username, "grade", True)
         return render_template("student/tools/view_credits/grade_desc.html", credits=credits, user=current_user)
     return redirect("/")
+
 
 @student.route("/view-credits/sorted-by-credits")
 @login_required
@@ -101,6 +102,7 @@ def view_credits_sorted_by_credits():
         return render_template("student/tools/view_credits/credits.html", credits=credits, user=current_user)
     return redirect("/")
 
+
 @student.route("/view-credits/sorted-by-credits-desc")
 @login_required
 def view_credits_sorted_by_credits_desc():
@@ -110,6 +112,7 @@ def view_credits_sorted_by_credits_desc():
         credits = database.get_student_completed_courses_sorted_by(username, "credits", True)
         return render_template("student/tools/view_credits/credits_desc.html", credits=credits, user=current_user)
     return redirect("/")
+
 
 @student.route("/view-credits/sorted-by-name")
 @login_required
@@ -121,6 +124,7 @@ def view_credits_sorted_by_name():
         return render_template("student/tools/view_credits/name.html", credits=credits, user=current_user)
     return redirect("/")
 
+
 @student.route("/view-credits/sorted-by-name-desc")
 @login_required
 def view_credits_sorted_by_name_desc():
@@ -131,6 +135,7 @@ def view_credits_sorted_by_name_desc():
         return render_template("student/tools/view_credits/name_desc.html", credits=credits, user=current_user)
     return redirect("/")
 
+
 @student.route("/view-credits/sorted-by-key")
 @login_required
 def view_credits_sorted_by_key():
@@ -140,6 +145,7 @@ def view_credits_sorted_by_key():
         credits = database.get_student_completed_courses_sorted_by(username, "key", False)
         return render_template("student/tools/view_credits/key.html", credits=credits, user=current_user)
     return redirect("/")
+
 
 @student.route("/view-credits/sorted-by-key-desc")
 @login_required

@@ -19,6 +19,7 @@ def create_user(username: str, password: str):
     db.session.commit()
     return f"created new user: {username}"
 
+
 def create_course(key: str, name: str, credits: int):
     key = key.lower()
     open = "true"
@@ -33,6 +34,7 @@ def create_course(key: str, name: str, credits: int):
     db.session.commit()
     return f"created new course: {name} / {credits} / {key}"
 
+
 def create_student(username: str):
     username.lower()
     credits = 0
@@ -46,6 +48,7 @@ def create_student(username: str):
     db.session.execute(sql, {"username":username, "credits":credits, "visible":visible})
     db.session.commit()
     return f"Created new student: {username}"
+
 
 def create_role_request(username: str, message: str):
     username.lower()
@@ -63,6 +66,7 @@ def create_role_request(username: str, message: str):
     db.session.commit()
     return f"New role request created: {username} / {message} / {datetime_string}"
 
+
 def update_role_request(username: str, message: str):
     username = username.lower()
     if message == "" or message is None:
@@ -75,6 +79,7 @@ def update_role_request(username: str, message: str):
     db.session.execute(sql, {"username":username, "message":message})
     db.session.commit()
     return f"Updated role request: {username} / {message}"
+
 
 def update_course(key: str, name: str, credits: int, status: str):
     key = key.lower()
@@ -91,6 +96,7 @@ def update_course(key: str, name: str, credits: int, status: str):
     db.session.commit()
     return f"Updated course: {name} / {credits} / {key} / {status}"
 
+
 def update_student_credits(username: str, credits: int):
     username.lower()
     old_credits = get_student_credits(username)
@@ -103,6 +109,7 @@ def update_student_credits(username: str, credits: int):
     db.session.execute(sql, {"username":username, "new_credits":new_credits})
     db.session.commit()
     return f"Updated student {username} credits from {old_credits} to {new_credits}"
+
 
 def set_user_role(username: str, role: str):
     username.lower()
@@ -121,6 +128,7 @@ def set_user_role(username: str, role: str):
     db.session.commit()
     return f'Set "{username}" as {role}'
 
+
 def get_password(username: str):
     username.lower()
     sql = text('''
@@ -133,6 +141,7 @@ def get_password(username: str):
     if data is not None:
         return data[0]
     return None
+
 
 def get_user_id(username: str):
     username.lower()
@@ -147,6 +156,7 @@ def get_user_id(username: str):
         return data[0]
     return None
 
+
 def get_user_role(username: str):
     username.lower()
     sql = text('''
@@ -160,6 +170,7 @@ def get_user_role(username: str):
         return data[0]
     return None
 
+
 def get_student_credits(username: str):
     username.lower()
     sql = text('''
@@ -172,6 +183,7 @@ def get_student_credits(username: str):
     if data is not None:
         return data[0]
     return None
+
 
 def get_users_list_sorted_by(column: str, desc: bool=False):
     column.lower()
@@ -212,6 +224,7 @@ def get_users_list_sorted_by(column: str, desc: bool=False):
         data = db.session.execute(sql).fetchall()
         return data
     return "Invalid parameter input"
+
 
 def get_students_list_sorted_by(column: str, desc: bool=False):
     column.lower()
@@ -269,6 +282,7 @@ def get_students_list_sorted_by(column: str, desc: bool=False):
         return data
     return "Invalid parameter input"
 
+
 def get_course_info(key: str):
     key = key.lower()
     sql = text('''
@@ -279,6 +293,7 @@ def get_course_info(key: str):
             ''')
     data = db.session.execute(sql, {"tag":key}).fetchone()
     return data
+
 
 def get_courses_list_sorted_by(column: str, desc: bool=False):
     column.lower()
@@ -362,6 +377,7 @@ def get_role_requests_list():
     data = db.session.execute(sql).fetchall()
     return data
 
+
 def search_user_role_request(username: str):
     username.lower()
     sql = text('''
@@ -371,6 +387,7 @@ def search_user_role_request(username: str):
             ''')
     data = db.session.execute(sql, {"username":username}).fetchall()
     return data
+
 
 def search_username(username: str):
     username.lower()
@@ -382,6 +399,7 @@ def search_username(username: str):
             ''')
     data = db.session.execute(sql, {"username":username}).fetchall()
     return data
+
 
 def search_student(username: str):
     username.lower()
@@ -405,6 +423,7 @@ def search_course_key(key: str):
             ''')
     data = db.session.execute(sql, {"tag":key}).fetchall()
     return data
+
 
 def accept_role_request(username: str):
     username.lower()
@@ -430,6 +449,7 @@ def reject_role_request(username: str):
     db.session.commit()
     return f"Delete student role request from {username}"
 
+
 def delete_user(username: str):
     username.lower()
     txt = ""
@@ -448,6 +468,7 @@ def delete_user(username: str):
     db.session.execute(sql, {"username":username})
     db.session.commit()
     return f"Deleted user {username}" + txt
+
 
 def delete_student(username: str):
     username.lower()
@@ -474,6 +495,7 @@ def search_user_in_course(key: str, username: str):
     data = db.session.execute(sql, {"key":key, "username":username}).fetchall()
     return data
 
+
 def join_course(key: str, username: str):
     key.lower()
     username.lower()
@@ -490,6 +512,7 @@ def join_course(key: str, username: str):
     db.session.commit()
     return f"{username} joined the course {key}"
 
+
 def get_student_course_grade(key: str, username: str):
     key.lower()
     username.lower()
@@ -504,6 +527,7 @@ def get_student_course_grade(key: str, username: str):
         return None
     return data[0]
 
+
 def leave_course(key: str, username: str):
     key.lower()
     username.lower()
@@ -517,6 +541,7 @@ def leave_course(key: str, username: str):
     db.session.commit()
     return f"{username} left the course {key}"
 
+
 def get_user_courses(username: str):
     username.lower()
     sql = text('''
@@ -529,6 +554,7 @@ def get_user_courses(username: str):
     data = db.session.execute(sql, {"username":username}).fetchall()
     return data
 
+
 def get_course_students(key: str):
     key.lower()
     sql = text('''
@@ -539,6 +565,7 @@ def get_course_students(key: str):
             ''')
     data = db.session.execute(sql, {"course_tag":key}).fetchall()
     return data
+
 
 def update_student_grade(key: str, username: str, grade: int):
     key.lower()
@@ -562,6 +589,7 @@ def update_student_grade(key: str, username: str, grade: int):
     db.session.execute(sql, {"credits":new_credits, "username":username})
     db.session.commit()
     return f'Updated {username} grade to {grade}'
+
 
 def get_course_credits(key: str):
     key.lower()
@@ -620,6 +648,7 @@ def get_student_credits(username: str):
             ''')
     data = db.session.execute(sql, {"username":username}).fetchone()
     return data[0]
+
 
 def get_student_completed_courses_sorted_by(username: str, column: str, desc: bool=False):
     username.lower()
